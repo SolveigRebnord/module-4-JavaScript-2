@@ -44,10 +44,14 @@ logInForm.addEventListener("submit", function (event) {
 
     if (isFormValid) {
         console.log("Validation SUCCEEDED!!  🥳");
-        const userData = {
+        const userData = { // lager objektet som kreves i body i API
             "email": email.value,
             "password": password.value
         }
+        //console.log(userData);
+
+        let USER_LOGIN_URL_ENDPOINT = "https://nf-api.onrender.com/api/v1/social/auth/login";
+
 
     } else {
         console.log("Validation FAILED!! 💩");
