@@ -1,10 +1,11 @@
 import {getUserName} from "../utils/storage";
 
+
 function createHeaderBar() {
     const {pathname} = document.location;
     const navBar = document.querySelector("#nav-bar");
     if (navBar) {
-        const userName = getUserName();
+        const userName = getUserName().name;
         let navLinks;
          navLinks = `
             <li class="p-8"><a href="/signup.html" class="${pathname === "/signup.html" ? "text-blue-600" : ""}">SignUp</a></li>
@@ -33,3 +34,5 @@ function createHeaderBar() {
 }
 
 export default createHeaderBar;
+
+

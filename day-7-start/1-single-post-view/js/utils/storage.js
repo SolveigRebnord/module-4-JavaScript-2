@@ -8,7 +8,12 @@ function saveToken(token) {
 }
 
 function getToken() {
-    return getFromStorage(tokenKey);
+    const value = localStorage.getItem(tokenKey);
+    if (value) {
+        return JSON.parse(value); // convert to JS
+    } else {
+        return null;
+    }
 }
 
 // save user object
@@ -17,9 +22,9 @@ function saveUser(user) {
 }
 
 function getUserName() {
-    const user = getFromStorage(userKey);
-    if (userKey) {
-        return user.name
+    const value = localStorage.getItem(userKey);
+    if (value) {
+        return JSON.parse(value); // convert to JS
     } else {
         return null;
     }
@@ -32,12 +37,7 @@ function saveToStorage(key, value) {
 
 // function which gets data from the local storage
 function getFromStorage(key) {
-    const value = localStorage.getItem(key);
-    if (value) {
-        return JSON.parse(value); // convert to JS
-    } else {
-        return []
-    }
+ 
 }
 
 function clearStorage() {

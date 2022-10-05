@@ -9,6 +9,8 @@ export default {
                 logIn: resolve(__dirname, 'login.html'),
                 welcome: resolve(__dirname, 'welcome.html'),
                 createPost: resolve(__dirname, 'create-post.html'),
+                singlePost: resolve(__dirname, 'singlepost.html'),
+
             },
         },
     },

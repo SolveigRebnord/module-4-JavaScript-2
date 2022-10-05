@@ -19,4 +19,16 @@ function validatePassword(password, confirmPassword) {
     }
 }
 
-export {validateEmail, validatePassword}
+
+
+
+function checkAccess(access) {
+
+    if (access === null) {
+     console.log("bad token")
+     window.location.replace("/login.html");
+    }
+ };
+ 
+
+ export {validateEmail, validatePassword, checkAccess}

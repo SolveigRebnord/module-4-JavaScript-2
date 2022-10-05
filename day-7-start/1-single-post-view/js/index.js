@@ -2,6 +2,8 @@ import '../style.css'
 import {clearStorage} from "./utils/storage";
 import createHeaderBar from "./components/createHeaderBar";
 
+
+
 createHeaderBar();
 const logOutBtn = document.querySelector("#logout-btn");
 

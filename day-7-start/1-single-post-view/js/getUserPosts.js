@@ -1,23 +1,32 @@
 import moment from "moment";
 import {GET_USER_POSTS_URL, DELETE_USER_POST_BY_ID} from "./settings/api"
 import {getToken} from "./utils/storage";
+import { checkAccess } from "./utils/validation";
+
+
+
+const key = getToken();
+//console.log(key);
+checkAccess(key);
+
 
 let now = moment(new Date()); // today's date
-const accessToken = getToken();
+
 
 const postsContainer = document.querySelector("#posts-container");
 const postsNotificationMessage = document.querySelector(".posts__notification");
 
-(async function getUserPosts() {
+async function getUserPosts() {
     const response = await fetch(GET_USER_POSTS_URL, {
         method: "GET",
         headers: {
-            "Authorization": `Bearer ${accessToken}`
+            "Authorization": `Bearer ${key}`
         }
     })
     if (response.ok) {
         const jsonResponse = await response.json();
         console.log("GET MY POSTS SUCCEEDED!!  🥳 🤗🤗");
+        postsContainer.innerHTML = "";
         const {posts} = jsonResponse;
         if (!posts.length) {
             postsNotificationMessage.innerHTML = "Sorry you don't have posts currently";
@@ -56,8 +65,10 @@ const postsNotificationMessage = document.querySelector(".posts__notification");
     } else {
         postsNotificationMessage.innerHTML = await response.json()
         console.log("GET MY POSTS FAILED!!  😥😥😥");
-    }
-})().then(() => {
+    } 
+}
+
+getUserPosts().then(() => {
     // API CALL IS DONE AND WE HAVE THE POSTS CREATED WITH DELETE BTNS
 
     // get all the btns with class
@@ -75,6 +86,7 @@ const postsNotificationMessage = document.querySelector(".posts__notification");
             const postId = this.dataset.id;
             //TODO Delete post by id
             handleDeletePostById(postId);
+      
         });
     }
 })
@@ -91,12 +103,13 @@ function handleDeletePostById(id) {
             let response = await fetch(`${DELETE_USER_POST_BY_ID}/${id}`, {
                 method: "DELETE",
                 headers: {
-                    "Authorization": `Bearer ${accessToken}`
+                    "Authorization": `Bearer ${key}`
                 }
             });
             if (response.status === 200) {
                 console.log("delete post success ⭕ ⭕ ⭕ !! ");
-                location.replace("/");
+                //location.replace("/");
+                getUserPosts();
             } else {
                 const err = await response.json();
                 const message = `Sorry some error ${err}`;

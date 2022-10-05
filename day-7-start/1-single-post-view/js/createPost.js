@@ -1,5 +1,11 @@
 import {getToken} from "./utils/storage";
 import {CREATE_POST_URL} from "./settings/api";
+import { checkAccess } from "./utils/validation";
+
+const key = getToken();
+//console.log(key);
+checkAccess(key);
+
 
 const createPostForm = document.querySelector("#create-post-form");
 
